@@ -1,0 +1,8 @@
+{
+  "signUp": "Sign up",
+  "firstName": "Imię",
+  "lastName": "Nazwisko",
+  "password": "Hasło",
+  "email": "E-mail",
+  "The email has already been taken.": "E-mail jest już zajęty"
+}
