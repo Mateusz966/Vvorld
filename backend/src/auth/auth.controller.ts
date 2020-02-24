@@ -1,11 +1,13 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
+
 
 @Controller('auth')
 export class AuthController {
 
   @Post('signup')
-  signUp(): string {
-    return 'test';
+  async signUp(@Body() signUpDto): Promise<string> {
+    console.log(signUpDto);
+    return 'xd';
   }
 
 }
