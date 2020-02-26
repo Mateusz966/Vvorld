@@ -4,16 +4,16 @@ import { Base } from "../config/base.entity";
 
 @Entity()
 export class User extends Base {
-  @Column()
-  firstName: string;
+  @Column({nullable: true})
+  firstName: string | null;
 
-  @Column()
-  lastName: string;
+  @Column({nullable: true})
+  lastName: string | null;
 
-  @Column()
-  mobilePhone: string;
+  @Column({nullable: true, unique: true})
+  mobilePhone: string | null;
 
-  @Column()
+  @Column({unique: true})
   email: string;
 
   @Column()

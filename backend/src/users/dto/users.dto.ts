@@ -1,15 +1,18 @@
-import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, Equals  } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsOptional, } from 'class-validator';
+import { IsPasswordsEqual } from '../../helpers/isPasswordsEqual';
 
 export class CreateUserDto {
+  
   @IsString()
-  @IsNotEmpty()
-  firstName?: string;
+  @IsOptional()
+  firstName: string;
 
   @IsString()
-  @IsNotEmpty()
-  lastName?: string;
+  @IsOptional()
+  lastName: string;
 
   @IsPhoneNumber('PL, DE, UK')
+  @IsOptional()
   mobilePhone: string;
 
   @IsEmail()
@@ -19,7 +22,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @Equals(this.password, this.passwordConfirmation)
+
+  @IsPasswordsEqual('password')
   @IsNotEmpty()
   passwordConfirmation: string;
 }

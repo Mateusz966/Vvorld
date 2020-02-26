@@ -7,8 +7,4 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {
 
   }
-
-  async validateUser(): Promise<string> {
-    return 'xd';
-  }
 }
