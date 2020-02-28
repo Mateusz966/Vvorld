@@ -1,38 +1,45 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateUserDto } from '../users/dto/users.dto';
+import { Controller, Post, Body } from '@nestjs/common';
+import { CreateUserDto, LoginUserDto } from '../users/dto/users.dto';
 import { UsersService } from 'src/users/users.service';
-
+import { ErrorBuilder } from '../helpers/customErrorObject';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
 
-  constructor (private readonly usersService: UsersService) { }
+  constructor (
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService
+  ) { }
 
   @Post('signup')
   async registerUser(@Body() createUser: CreateUserDto) {
     createUser.passwordConfirmation = undefined;
-    if (await this.usersService.ifUserExist(createUser.email)) {
-      throw new HttpException
-        (
-          {
-            message: [
-              {
-                target: {
-                  property: 'email',
-                  constraints: {
-                    exist: "Given email is aleady taken"
-                  }
-                }
-              }
-            ]
-
-          },
-          HttpStatus.UNPROCESSABLE_ENTITY
-        );
+    let { email, password } = createUser;
+    try {
+      await this.usersService.findUser(email)
+      password = await this.authService.hashPassword(password);
+      await this.usersService.saveUser(createUser);
+    } catch (error) {
+      console.log('xd');
     }
-    await this.usersService.createUser(createUser);
+
   }
 
+  @Post('login')
+  async login(@Body() loginUser: LoginUserDto) {
+    const { password } = loginUser;
+    try {
+      const isUserValid = await this.authService.validUser(loginUser);
+      if (isUserValid) {
+
+      }
+      ErrorBuilder('password', { error: 'Wrong login or password' });
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 }
 

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsOptional, } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsOptional, IsMobilePhone, } from 'class-validator';
 import { IsPasswordsEqual } from '../../helpers/isPasswordsEqual';
 
 export class CreateUserDto {
@@ -29,5 +29,13 @@ export class CreateUserDto {
 }
 
 export class LoginUserDto {
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 
 }
