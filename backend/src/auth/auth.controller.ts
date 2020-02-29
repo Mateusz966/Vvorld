@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpException} from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from '../users/dto/users.dto';
 import { UsersService } from 'src/users/users.service';
 import { ErrorBuilder } from '../helpers/customErrorObject';
@@ -17,11 +17,11 @@ export class AuthController {
     createUser.passwordConfirmation = undefined;
     let { email, password } = createUser;
     try {
-      await this.usersService.findUser(email)
+      await this.authService.isRegisterUserValid(email);
       password = await this.authService.hashPassword(password);
       await this.usersService.saveUser(createUser);
     } catch (error) {
-      console.log('xd');
+      throw new HttpException(error.message, error.httpStatus);
     }
 
   }
@@ -31,11 +31,6 @@ export class AuthController {
     const { password } = loginUser;
     try {
       const isUserValid = await this.authService.validUser(loginUser);
-      if (isUserValid) {
-
-      }
-      ErrorBuilder('password', { error: 'Wrong login or password' });
-
     } catch (error) {
       console.error(error);
     }

@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { hash, compare } from 'bcrypt';
 import { LoginUserDto } from 'src/users/dto/users.dto';
+import { ErrorBuilder } from 'src/helpers/customErrorObject';
 
 @Injectable()
 export class AuthService {
@@ -32,6 +33,18 @@ export class AuthService {
     }
   }
 
+  async isRegisterUserValid(email: string): Promise<PromiseConstructor> {
+    if (await this.usersService.findUser(email)) {
+      return Promise.reject(
+        ErrorBuilder('email', {
+          exist: "Given email is taken",
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+        )
+      )
+    }
+  }
+
 
   async comparePassword(givenPassword: string, hash: string): Promise<boolean> {
     try {
@@ -42,15 +55,6 @@ export class AuthService {
     }
   }
 
-  async isRegisterUserValid(email: string) {
-    try {
-      console.log(email);
-      const user = await this.usersService.findUser(email);
-      return user ? undefined : true;
-    } catch (error) {
-      console.log('halko');
-    }
-  }
 
   async login(user: LoginUserDto) {
 
