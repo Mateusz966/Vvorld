@@ -25,7 +25,7 @@ export class AuthService {
       const user = await this.usersService.findUser(email);
       if (user) {
         await this.comparePassword(password, user.password);
-        return true;
+        return user;
       }
       return false;
     } catch (error) {
@@ -54,11 +54,4 @@ export class AuthService {
       return false;
     }
   }
-
-
-  async login(user: LoginUserDto) {
-
-  }
-
-
 }
