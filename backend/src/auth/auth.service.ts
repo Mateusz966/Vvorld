@@ -27,7 +27,7 @@ export class AuthService {
         await this.comparePassword(password, user.password);
         return user;
       }
-      return false;
+      return undefined;
     } catch (error) {
       console.log(error);
     }

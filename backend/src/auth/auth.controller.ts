@@ -30,7 +30,6 @@ export class AuthController {
   async login(@Body() loginUser: LoginUserDto) {
     try {
       const user = await this.authService.validUser(loginUser);
-      console.log(user);
     } catch (error) {
       console.error(error);
     }
