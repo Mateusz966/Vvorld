@@ -29,7 +29,8 @@ export class AuthController {
   @Post('login')
   async login(@Body() loginUser: LoginUserDto) {
     try {
-      const user = await this.authService.validUser(loginUser);
+      const token = await this.authService.validUser(loginUser);
+      return token;
     } catch (error) {
       console.error(error);
     }

@@ -3,11 +3,17 @@ import { UsersService } from 'src/users/users.service';
 import { hash, compare } from 'bcrypt';
 import { LoginUserDto } from 'src/users/dto/users.dto';
 import { ErrorBuilder } from 'src/helpers/customErrorObject';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
 
-  constructor (private readonly usersService: UsersService) { }
+  constructor (
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService
+    ) 
+    
+    { }
 
   async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;
@@ -25,7 +31,8 @@ export class AuthService {
       const user = await this.usersService.findUser(email);
       if (user) {
         await this.comparePassword(password, user.password);
-        return user;
+        const token = await this.getAccess(user);
+        return token;
       }
       return undefined;
     } catch (error) {
@@ -43,6 +50,13 @@ export class AuthService {
         )
       )
     }
+  }
+
+  async getAccess(user: any) {
+    const payload = { username: user.email, sub: user.id };
+    return {
+      accessToken: this.jwtService.sign(payload),
+    };
   }
 
 
