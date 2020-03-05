@@ -12,7 +12,7 @@ createConnection({
     entities: ["dist/**/*.entity{.ts,.js}"],
     synchronize: true,
     migrations: ["dist/database/migration/*.js"],
-    cli: {
+    cli: {  
         "migrationsDir": "migration"
     }
   })
