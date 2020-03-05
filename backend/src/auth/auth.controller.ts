@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException} from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus} from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from '../users/dto/users.dto';
 import { UsersService } from 'src/users/users.service';
 import { ErrorBuilder } from '../helpers/customErrorObject';
@@ -15,10 +15,10 @@ export class AuthController {
   @Post('signup')
   async registerUser(@Body() createUser: CreateUserDto) {
     createUser.passwordConfirmation = undefined;
-    let { email, password } = createUser;
+    const { email, password } = createUser;
     try {
       await this.authService.isRegisterUserValid(email);
-      password = await this.authService.hashPassword(password);
+      createUser.password = await this.authService.hashPassword(password);
       await this.usersService.saveUser(createUser);
     } catch (error) {
       throw new HttpException(error.message, error.httpStatus);
@@ -30,9 +30,12 @@ export class AuthController {
   async login(@Body() loginUser: LoginUserDto) {
     try {
       const token = await this.authService.validUser(loginUser);
-      return token;
+      if (token) {
+        return token;
+      }
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     } catch (error) {
-      console.error(error);
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
 

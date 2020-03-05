@@ -30,11 +30,11 @@ export class AuthService {
     try {
       const user = await this.usersService.findUser(email);
       if (user) {
-        await this.comparePassword(password, user.password);
+        const isPasswordValid = await this.comparePassword(password, user.password);
         const token = await this.getAccess(user);
-        return token;
+        return isPasswordValid ? token : undefined;
       }
-      return undefined;
+     return undefined;
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +63,7 @@ export class AuthService {
   async comparePassword(givenPassword: string, hash: string): Promise<boolean> {
     try {
       const isValid = await compare(givenPassword, hash);
-      return isValid ? true : false;
+      return isValid;
     } catch (error) {
       return false;
     }
