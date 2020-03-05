@@ -7,7 +7,7 @@
   "database": "postgres",
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": true,
-  "migrations": ["migration/*.ts"],
+  "migrations": ["dist/database/migration/*.js"],
   "cli": {
       "migrationsDir": "migration"
   }
