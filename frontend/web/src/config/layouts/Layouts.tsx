@@ -7,7 +7,7 @@ import LAuth from '../../layouts/LAuth';
 const Layouts: React.FC<{}> = () => {
   return (
     <Switch>
-
+      <LAuth />
     </Switch>
   )
 }

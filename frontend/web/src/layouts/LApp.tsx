@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
-const LAuth: React.FC<{}> = () => {
+const LApp: React.FC<{}> = () => {
   return (
     <div>
       <Suspense fallback={null}>
@@ -11,4 +11,4 @@ const LAuth: React.FC<{}> = () => {
   )
 }
 
-export default LAuth
+export default LApp
