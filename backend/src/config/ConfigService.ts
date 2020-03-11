@@ -39,7 +39,7 @@ class ConfigService {
       password: this.getValue('DB_PASSWORD'),
       database: this.getValue('DB_DATABASE'),
       entities: ["dist/**/*.entity{.ts,.js}"],
-      migrations: ["dist/database/migration/*.js"],
+      migrations: ["dist/database/migration/*.js"], 
       cli: {
           migrationsDir: "migration"
       }
