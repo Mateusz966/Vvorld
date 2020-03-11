@@ -11,6 +11,7 @@ import { configService } from './config/ConfigService';
   controllers: [AppController],
   providers: [AppService],
 })
+
 export class AppModule {
   constructor(private readonly connection: Connection) {}
 }
