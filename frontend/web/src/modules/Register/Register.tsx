@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
+import RegisterForm from './components/RegisterForm';
+
 
 interface Props {
   
@@ -7,11 +9,9 @@ interface Props {
 class Register extends PureComponent<Props> {
   render() {
     return (
-      <div>
-        
-      </div>
+      <RegisterForm />
     )
   }
 }
 
-export default Register
+export default Register;
