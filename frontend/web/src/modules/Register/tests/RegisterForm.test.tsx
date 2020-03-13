@@ -19,8 +19,8 @@ describe('Register from tests', () => {
   });
 
   it('Handle change method works correctly', () => {
-    const { getByTestId } = render(<RegisterForm />);
-    const input = getByTestId('email');
+    const { container } = render(<RegisterForm />);
+    const input = container.querySelector('input[name="email"]');
     const email = 'example@example.com';
 
     fireEvent.change(input, { target: { value: email } });
@@ -35,7 +35,7 @@ describe('Register from tests', () => {
     const email = container.querySelector('input[name="email"]');
     const formData = {
       email: 'example@example.com',
-      password: '123wqe',
+      password: '123qwe',
       passwordConfirmation: '123qwe',
     };
 
@@ -48,7 +48,7 @@ describe('Register from tests', () => {
       password: password.value,
       passwordConfirmation: passwordConfirmation.value,
       email: email.value,
-    }).toBe(FormData)
+    }).toMatchObject(formData)
 
   });
 

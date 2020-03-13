@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { TextField, Button } from '@material-ui/core';
+import React, { Component } from 'react';
+import { TextField, Button, Grid } from '@material-ui/core';
+import AuthApi from '../../../api/Auth';
 
 interface Props {
-  
+
 }
 interface State {
   formData: {
@@ -10,13 +11,20 @@ interface State {
     password: string,
     passwordConfirmation: string,
     mobilePhone: string,
-  }
-  errors: any,
+  };
+  errors: {
+    email: string,
+    password: string,
+    passwordConfirmation: string,
+    mobilePhone: string,
+  };
   inProgress: boolean,
 }
 
 export default class RegisterForm extends Component<Props, State> {
-  constructor(props: Props) {
+  #authApi: AuthApi;
+
+  constructor (props: Props) {
     super(props);
     this.state = {
       formData: {
@@ -26,19 +34,29 @@ export default class RegisterForm extends Component<Props, State> {
         mobilePhone: '',
       },
       errors: {
-
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+        mobilePhone: '',
       },
       inProgress: false,
-    }
+    };
+    this.#authApi = new AuthApi();
   }
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-   event.preventDefault();
-   
+   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { formData } = this.state;
+
     this.setState({
       inProgress: true
-    })
-  }
+    });
+    try {
+     const response = await this.#authApi.signUp(formData);
+    } catch (error) {
+      
+    }
+  };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.currentTarget;
@@ -47,8 +65,8 @@ export default class RegisterForm extends Component<Props, State> {
         ...formData,
         [name]: value,
       }
-    }))
-  }
+    }));
+  };
 
   render() {
 
@@ -56,12 +74,20 @@ export default class RegisterForm extends Component<Props, State> {
     const { inProgress } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField value={email} label="email" name="email" inputProps={{ "data-testid": "email" }} onChange={this.handleChange} variant="outlined"  />
-        <Button disabled={inProgress} type="submit">
-          Zarejestuj się
-        </Button>
-      </form>
-    )
+      <Grid container spacing={3} justify="center" component="form" onSubmit={this.handleSubmit}>
+        <Grid item xs={6}>
+          <TextField value={email} label="email" type="email" name="email" onChange={this.handleChange} variant="outlined" />
+          <TextField value={password} label="password" type="password" name="password" onChange={this.handleChange} variant="outlined" />
+          <TextField value={passwordConfirmation} label="password confirmation" type="password" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
+          <TextField value={mobilePhone} label="mobile phone" type="text" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
+          <Grid item xs={12}>
+            <Button disabled={inProgress} type="submit">
+              Zarejestuj się
+            </Button>
+          </Grid>
+        </Grid>
+
+      </Grid>
+    );
   }
 }
