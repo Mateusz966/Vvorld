@@ -23,7 +23,9 @@ export class CreateUserDto {
   password: string;
 
 
-  @IsPasswordsEqual('password')
+  @IsPasswordsEqual('password',{
+    message: 'Text must be longer than the title'
+  })
   @IsNotEmpty()
   passwordConfirmation: string;
 }

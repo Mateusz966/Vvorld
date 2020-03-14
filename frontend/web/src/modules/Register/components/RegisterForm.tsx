@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { TextField, Button, Grid } from '@material-ui/core';
 import AuthApi from '../../../api/Auth';
+import styled from 'styled-components';
+
+
+const StyledTextField = styled(TextField)`
+  margin-bottom: 15px;
+`;
 
 interface Props {
 
@@ -19,6 +25,7 @@ interface State {
     mobilePhone: string,
   };
   inProgress: boolean,
+  formSended: boolean,
 }
 
 export default class RegisterForm extends Component<Props, State> {
@@ -40,6 +47,7 @@ export default class RegisterForm extends Component<Props, State> {
         mobilePhone: '',
       },
       inProgress: false,
+      formSended: false,
     };
     this.#authApi = new AuthApi();
   }
@@ -47,14 +55,20 @@ export default class RegisterForm extends Component<Props, State> {
    handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { formData } = this.state;
-
     this.setState({
-      inProgress: true
+      inProgress: true,
     });
     try {
-     const response = await this.#authApi.signUp(formData);
+     await this.#authApi.signUp(formData);
+     this.setState({
+       formSended: true,
+     })
     } catch (error) {
-      
+      console.error(error);
+    } finally {
+      this.setState({
+        inProgress: false,
+      })
     }
   };
 
@@ -75,11 +89,11 @@ export default class RegisterForm extends Component<Props, State> {
 
     return (
       <Grid container spacing={3} justify="center" component="form" onSubmit={this.handleSubmit}>
-        <Grid item xs={6}>
-          <TextField value={email} label="email" type="email" name="email" onChange={this.handleChange} variant="outlined" />
-          <TextField value={password} label="password" type="password" name="password" onChange={this.handleChange} variant="outlined" />
-          <TextField value={passwordConfirmation} label="password confirmation" type="password" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
-          <TextField value={mobilePhone} label="mobile phone" type="text" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
+        <Grid item xs={4}>
+          <StyledTextField required value={email} label="email" type="email" name="email" onChange={this.handleChange} variant="outlined" />
+          <StyledTextField required value={password} label="password" type="password" name="password" onChange={this.handleChange} variant="outlined" />
+          <StyledTextField required value={passwordConfirmation} label="password confirmation" type="password" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
+          <StyledTextField required value={mobilePhone} label="mobile phone" type="text" name="mobilePhone" onChange={this.handleChange} variant="outlined" />
           <Grid item xs={12}>
             <Button disabled={inProgress} type="submit">
               Zarejestuj się

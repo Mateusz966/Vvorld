@@ -14,7 +14,7 @@ const signUpApi = '/auth/signup'
 
 export default class AuthApi {
   async signUp(user: IRegsiterUser) {
-    const response = await axiosClient.post(signInApi, user);
+    const response = await axiosClient.post(signUpApi, user);
     return response.data;
   }
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { createBrowserHistory } from "history";
  
 const history = createBrowserHistory();
-const baseURL = process.env.NODE_ENV === ('development' || 'test') ? 'localhost:3300' : '';
+const baseURL = process.env.NODE_ENV === ('development' || 'test') ? 'http://localhost:3300' : '';
 
 // Axios default configuration below
 
