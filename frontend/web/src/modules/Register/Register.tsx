@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import RegisterForm from './components/RegisterForm';
 import RegisterText from './components/RegisterText';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import styled from 'styled-components';
 
 
@@ -20,16 +20,17 @@ interface Props {
 class Register extends PureComponent<Props> {
   render() {
     return (
-      <Grid container>
-        <Grid item xs={6}>
-        <RegisterText />
-        <RegisterForm />
+      <Container> 
+        <Grid spacing={3} container>
+          <Grid item xs={6}>
+            <RegisterText />
+            <RegisterForm />
+          </Grid>
+          <Grid item xs={6}>
+            <BackgroundImage />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <BackgroundImage />
-        </Grid>
-      </Grid>
-
+      </Container>
     );
   }
 }

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { TextField, Button, Grid } from '@material-ui/core';
+import { TextField, Button, Grid, CircularProgress } from '@material-ui/core';
 import AuthApi from '../../../api/Auth';
 import styled from 'styled-components';
+import RegisterSuccessed from './RegisterSuccessed';
 
 
 const StyledTextField = styled(TextField)`
   margin-bottom: 15px;
+  width: 100%;
 `;
 
 interface Props {
@@ -52,23 +54,23 @@ export default class RegisterForm extends Component<Props, State> {
     this.#authApi = new AuthApi();
   }
 
-   handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { formData } = this.state;
     this.setState({
       inProgress: true,
     });
     try {
-     await this.#authApi.signUp(formData);
-     this.setState({
-       formSended: true,
-     })
+      await this.#authApi.signUp(formData);
+      this.setState({
+        formSended: true,
+      });
     } catch (error) {
       console.error(error);
     } finally {
       this.setState({
         inProgress: false,
-      })
+      });
     }
   };
 
@@ -85,22 +87,31 @@ export default class RegisterForm extends Component<Props, State> {
   render() {
 
     const { email, password, passwordConfirmation, mobilePhone } = this.state.formData;
-    const { inProgress } = this.state;
+    const { inProgress, formSended } = this.state;
 
     return (
-      <Grid container spacing={3} justify="center" component="form" onSubmit={this.handleSubmit}>
-        <Grid item xs={4}>
-          <StyledTextField required value={email} label="email" type="email" name="email" onChange={this.handleChange} variant="outlined" />
-          <StyledTextField required value={password} label="password" type="password" name="password" onChange={this.handleChange} variant="outlined" />
-          <StyledTextField required value={passwordConfirmation} label="password confirmation" type="password" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
-          <StyledTextField required value={mobilePhone} label="mobile phone" type="text" name="mobilePhone" onChange={this.handleChange} variant="outlined" />
-          <Grid item xs={12}>
-            <Button disabled={inProgress} type="submit">
-              Zarejestuj się
-            </Button>
-          </Grid>
-        </Grid>
+      <Grid container spacing={3} component="form" onSubmit={this.handleSubmit}>
+        <Grid item xs={8}>
+          {
+            formSended 
+              ?
+              <RegisterSuccessed />
+              :
+              <React.Fragment>
+                <StyledTextField required value={email} label="email" type="email" name="email" onChange={this.handleChange} variant="outlined" />
+                <StyledTextField required value={password} label="password" type="password" name="password" onChange={this.handleChange} variant="outlined" />
+                <StyledTextField required value={passwordConfirmation} label="password confirmation" type="password" name="passwordConfirmation" onChange={this.handleChange} variant="outlined" />
+                <StyledTextField value={mobilePhone} label="mobile phone" type="text" name="mobilePhone" onChange={this.handleChange} variant="outlined" />
+                <Grid item xs={12}>
+                  <Button disabled={inProgress} type="submit">
+                  {inProgress && <CircularProgress />}
+                    Zarejestuj się
+                  </Button>
+                </Grid>
+              </React.Fragment>
+          }
 
+        </Grid>
       </Grid>
     );
   }

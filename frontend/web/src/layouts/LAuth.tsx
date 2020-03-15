@@ -4,10 +4,10 @@ import Register from '../modules/Register/Register';
 
 const LAuth: React.FC<{}> = () => {
   return (
-      <Suspense fallback={null}>
-        <Route path="/auth/sign-in" component={Register}></Route>
-      </Suspense>
-  )
-}
+    <Suspense fallback={null}>
+      <Route path="/auth/sign-in" component={Register}></Route>
+    </Suspense>
+  );
+};
 
-export default LAuth
+export default LAuth;

@@ -23,7 +23,7 @@ export default createMuiTheme({
     }
   },
   typography: {
-    fontSize: 14
+    fontSize: 14,
   },
   palette: {
     primary: {

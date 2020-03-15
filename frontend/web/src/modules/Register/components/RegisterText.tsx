@@ -1,14 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
 
-
+const MainText = styled('h3')`
+  font-size: 1.5em;
+  margin-bottom: 10px;
+`;
 
 const RegisterText: React.FC = () => {
   return (
     <React.Fragment>
-      <h3>
+      <MainText>
         Sign up on vWorld
-      </h3>
+      </MainText>
       <p>
         Create free account and enter to better <span>V</span>orld
       </p>

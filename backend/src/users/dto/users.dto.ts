@@ -11,7 +11,7 @@ export class CreateUserDto {
   @IsOptional()
   lastName: string;
 
-  @IsPhoneNumber('PL, DE, UK')
+  @IsString()
   @IsOptional()
   mobilePhone: string;
 
