@@ -24,12 +24,12 @@ export class CreateUserDto {
 
 
   @IsPasswordsEqual('password',{
-    message: 'Text must be longer than the title'
+    message: 'Passwords must match'
   })
   @IsNotEmpty()
   passwordConfirmation: string;
 }
-
+  
 export class LoginUserDto {
 
   @IsNotEmpty()
