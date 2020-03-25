@@ -1,5 +1,5 @@
 import { Injectable} from '@nestjs/common';
-import { CreateUserDto } from './dto/users.dto';
+import { RegisterUserDto } from './users.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -12,7 +12,7 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
   ) { }
 
-  async saveUser(user: CreateUserDto) {
+  async saveUser(user: RegisterUserDto) {
     try {
       await this.usersRepository.insert(user);
     } catch (error) {
@@ -31,6 +31,10 @@ export class UsersService {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  returnCurrentLoggedUser(userId: any) {
+    throw new Error("Method not implemented.");
   }
 
 }

@@ -9,8 +9,8 @@ interface IRegsiterUser {
 }
 
 
-const signInApi = '/auth/signin';
-const signUpApi = '/auth/signup'
+const signInApi = '/auth/sign-in';
+const signUpApi = '/auth/sign-up'
 
 export default class AuthApi {
   async signUp(user: IRegsiterUser) {

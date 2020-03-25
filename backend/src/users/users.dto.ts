@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsOptional, IsMobilePhone, } from 'class-validator';
-import { IsPasswordsEqual } from '../../helpers/isPasswordsEqual';
+import { IsPasswordsEqual } from '../helpers/isPasswordsEqual';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   
   @IsString()
   @IsOptional()

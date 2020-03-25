@@ -16,7 +16,7 @@ interface Props {
 
 }
 
-type RegisterData = {
+type RegisterUserData = {
   email: string,
   password: string,
   passwordConfirmation: string,
@@ -28,7 +28,7 @@ const RegisterForm = (props: Props) => {
   const { register, handleSubmit, errors, watch, setError } = useForm();
   const [formSended, setFormSended] = useState(false);
   const [inProgress, setInProgress] = useState(false);
-  const onSubmit = async (data: RegisterData, event: BaseSyntheticEvent) => {
+  const onSubmit = async (data: RegisterUserData, event: BaseSyntheticEvent) => {
     event.preventDefault();
 
     setInProgress(true);
@@ -40,7 +40,6 @@ const RegisterForm = (props: Props) => {
       if(error?.response?.data?.message) {
         const { message } = error?.response?.data;
         const errorsMessages = formatErrorsBeforeRender(message);
-        console.log(errorsMessages);
         setError(errorsMessages);
       } else  {
         console.error(error);
