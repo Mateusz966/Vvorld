@@ -4,7 +4,7 @@ import LAuth from '../../layouts/LAuth';
 
 
 
-const Layouts: React.FC<{}> = () => {
+const Layouts = () => {
   return (
     <Switch>
       <Route path="/auth" component={LAuth} />
