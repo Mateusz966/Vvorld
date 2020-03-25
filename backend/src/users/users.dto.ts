@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString, IsOptional, IsMobilePhone, } from 'class-validator';
-import { IsPasswordsEqual } from '../../helpers/isPasswordsEqual';
+import { IsPasswordsEqual } from '../helpers/isPasswordsEqual';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   
   @IsString()
   @IsOptional()
@@ -11,7 +11,7 @@ export class CreateUserDto {
   @IsOptional()
   lastName: string;
 
-  @IsPhoneNumber('PL, DE, UK')
+  @IsString()
   @IsOptional()
   mobilePhone: string;
 
@@ -23,11 +23,13 @@ export class CreateUserDto {
   password: string;
 
 
-  @IsPasswordsEqual('password')
+  @IsPasswordsEqual('password',{
+    message: 'Passwords must match'
+  })
   @IsNotEmpty()
   passwordConfirmation: string;
 }
-
+  
 export class LoginUserDto {
 
   @IsNotEmpty()

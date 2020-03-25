@@ -1,19 +1,20 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { hash, compare } from 'bcrypt';
-import { LoginUserDto } from 'src/users/dto/users.dto';
+import { RegisterUserDto, LoginUserDto } from '../users/users.dto'
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
+import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
-import { ErrorBuilder } from '../helpers/customErrorObject';
+
 
 @Injectable()
 export class AuthService {
 
-  constructor (
-    private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
-    ) 
-    
-    { }
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;
@@ -21,51 +22,33 @@ export class AuthService {
       const hashedPassword = await hash(password, saltRounds);
       return hashedPassword;
     } catch (error) {
-      console.error(error);
+      return error;
     }
   }
 
-  async validUser(loginUser: LoginUserDto): Promise<any> {
-    const { email, password } = loginUser;
+  async validateUser(user: LoginUserDto): Promise<any> {
+    const { email } = user;
     try {
-      const user = await this.usersService.findUser(email);
-      if (user) {
-        const isPasswordValid = await this.comparePassword(password, user.password);
-        const token = await this.getAccess(user);
-        return isPasswordValid ? token : undefined;
+      const userInDb = await this.usersRepository.findOne({ email, });
+      if (userInDb) {
+        const isUserValid = await compare(user.password, userInDb.password);
+        userInDb.password = undefined;
+        return isUserValid ? userInDb : undefined;
       }
-     return undefined;
     } catch (error) {
-      console.log(error);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async isRegisterUserValid(email: string): Promise<PromiseConstructor> {
-    if (await this.usersService.findUser(email)) {
-      return Promise.reject(
-        ErrorBuilder('email', {
-          exist: "Given email is taken",
-        },
-        HttpStatus.UNPROCESSABLE_ENTITY,
-        )
-      )
-    }
-  }
 
-  async getAccess(user: any) {
-    const payload = { username: user.email, sub: user.id };
-    return {
-      accessToken: this.jwtService.sign(payload),
+  async login(user: any) {
+    const payload = {
+      email: user.email,
+      sub: user.id
     };
-  }
-
-
-  async comparePassword(givenPassword: string, hash: string): Promise<boolean> {
-    try {
-      const isValid = await compare(givenPassword, hash);
-      return isValid;
-    } catch (error) {
-      return false;
+    return {
+      token: this.jwtService.sign(payload)
     }
   }
+
 }
