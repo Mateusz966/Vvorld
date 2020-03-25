@@ -36,8 +36,17 @@ const RegisterForm = (props: Props) => {
       await authApi.signUp(data);
       setFormSended(true);
     } catch (error) {
-      const { message } = error.response.data;
-      setError(formatErrorsBeforeRender(message));
+      console.dir(error);
+      if(error?.response?.data?.message) {
+        const { message } = error?.response?.data;
+        const errorsMessages = formatErrorsBeforeRender(message);
+        console.log(errorsMessages);
+        setError(errorsMessages);
+      } else  {
+        console.error(error);
+      }
+    } finally {
+      setInProgress(false);
     }
   }
 

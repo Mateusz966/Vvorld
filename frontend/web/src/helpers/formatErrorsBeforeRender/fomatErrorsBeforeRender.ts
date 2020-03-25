@@ -4,17 +4,14 @@ export const formatErrorsBeforeRender = (errors: string[]): any => {
   const mapedError = errors.map((error) => {
     let fieldName = error.split(' ', 1)[0];
     const message = error.slice(1);
-    const result = {}
 
     return {
-      type: fieldName,
+      name: fieldName,
       message,
     }
   });
 
   return mapedError;
-
-
 }
 
 export const convertToDictionary = ((mapedErrors: any) => {
