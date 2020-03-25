@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
-const LApp: React.FC<{}> = () => {
+const LApp = () => {
   return (
     <div>
       <Suspense fallback={null}>
