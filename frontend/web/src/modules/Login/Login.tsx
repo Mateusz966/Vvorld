@@ -1,20 +1,14 @@
-import React from 'react'
+import React from 'react';
 import { Container, Grid } from '@material-ui/core';
+import LoginForm from './componenets/LoginForm';
 
-interface Props {
-  
-}
+const Login = () => {
 
-const Login = (props: Props) => {
   return (
-    <>
-      <Container>
-        <Grid component={'form'} xs={12} item>
+    <Container>
+      <LoginForm />
+    </Container>
+  );
+};
 
-        </Grid>
-      </Container>
-    </>
-  )
-}
-
-export default Login
+export default Login;

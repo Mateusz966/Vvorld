@@ -12,10 +12,6 @@ const StyledTextField = styled(TextField)`
   margin-bottom: 15px;
 `;
 
-interface Props {
-
-}
-
 type RegisterUserData = {
   email: string,
   password: string,
@@ -23,11 +19,12 @@ type RegisterUserData = {
   mobilPhone?: string,
 }
 
-const RegisterForm = (props: Props) => {
+const RegisterForm = () => {
 
   const { register, handleSubmit, errors, watch, setError } = useForm();
   const [formSended, setFormSended] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+  
   const onSubmit = async (data: RegisterUserData, event: BaseSyntheticEvent) => {
     event.preventDefault();
 
@@ -36,7 +33,6 @@ const RegisterForm = (props: Props) => {
       await authApi.signUp(data);
       setFormSended(true);
     } catch (error) {
-      console.dir(error);
       if(error?.response?.data?.message) {
         const { message } = error?.response?.data;
         const errorsMessages = formatErrorsBeforeRender(message);

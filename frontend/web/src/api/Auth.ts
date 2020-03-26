@@ -15,15 +15,23 @@ interface LoginUser {
 
 
 const signInApi = '/auth/sign-in';
-const signUpApi = '/auth/sign-up'
+const signUpApi = '/auth/sign-up';
 
 export default class AuthApi {
   async signUp(user: RegsiterUser) {
-    const response = await axiosClient.post(signUpApi, user);
-    return response.data;
+    try {
+      const response = await axiosClient.post(signUpApi, user);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
   async signIn(user: LoginUser) {
-    const response = await axiosClient.post(signInApi, user);
-    return response.data;
+    try {
+      const response = await axiosClient.post(signInApi, user);
+      return response.data;
+    } catch (error) {
+      throw error   
+    }
   }
 }
