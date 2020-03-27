@@ -1,4 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import AuthApi from '../../api/Auth';
+import { LoginUserData } from '../../helpers/types';
+
+const authApi = new AuthApi();
+
+
+export const loginUser = createAsyncThunk(
+  'userData',
+  async (data: LoginUserData, { rejectWithValue }) => {
+    try {
+      console.log('a');
+      const user = await authApi.signIn(data);
+      return user;
+    } catch (error) {
+      console.log(error);
+      if (!error.response) {
+        throw error;
+      }
+      const { message } = error.response.data;
+      return rejectWithValue(message);
+    }
+  }
+);
+
 
 
 const loginSlice = createSlice({
@@ -8,20 +32,19 @@ const loginSlice = createSlice({
     error: '',
   },
   reducers: {
-    loginRequest(state) {
-      return state;
+
+  },
+  extraReducers: {
+    [loginUser.pending as any]: (state, action) => {
+      state.token = action.payload;
     },
-    loginSuccess(state, action) {
-      const { token } = action.payload;
-      state.token = token;
+    [loginUser.fulfilled as any]: (state, action) => {
+      state.token = action.payload;
     },
-    loginError(state, action) {
-      const { message } = action.payload;
-      state.error = message;
+    [loginUser.rejected as any]: (state, action) => {
+      state.error = action.payload;
     },
   }
-})
-
-export const { loginRequest, loginSuccess, loginError } = loginSlice.actions;
+});
 
 export default loginSlice.reducer;

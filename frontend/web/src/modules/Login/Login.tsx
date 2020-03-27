@@ -1,11 +1,18 @@
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Container, makeStyles, Theme, createStyles } from '@material-ui/core';
 import LoginForm from './componenets/LoginForm';
+import MainHeader from '../../shared/components/MainHeader/MainHeader';
+
+
+
 
 const Login = () => {
 
   return (
-    <Container>
+    <Container maxWidth="sm">
+      <MainHeader>
+        Sign In to better Vorld
+      </MainHeader>
       <LoginForm />
     </Container>
   );

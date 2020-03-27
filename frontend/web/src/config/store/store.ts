@@ -5,14 +5,14 @@ const persistedState = loadState();
 
 
 export const store = configureStore({
-   reducer: rootReducer,
-   middleware: persistedState,
+  reducer: rootReducer,
+  preloadedState: persistedState
 });
 
 store.subscribe(() => {
   saveState({
-   login: {
-    token: store.getState().auth.token,
-   }
-  })
-})
+    login: {
+      token: store.getState().auth.token,
+    }
+  });
+});
