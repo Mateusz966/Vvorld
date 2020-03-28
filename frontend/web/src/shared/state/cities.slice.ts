@@ -22,7 +22,7 @@ export const getCities = createAsyncThunk(
 );
 
 
-const initialState: City[] = []
+const initialState: City[] = [];
 
 const cities = createSlice({
   name: 'cities',
@@ -31,7 +31,15 @@ const cities = createSlice({
 
   },
   extraReducers: {
-
+    [getCities.pending as any]: (state, action) => {
+      
+    },
+    [getCities.fulfilled as any]: (state, action) => {
+      state = action.payload;
+    },
+    [getCities.rejected as any]: (state, action) => {
+      
+    },
   }
 });
 
