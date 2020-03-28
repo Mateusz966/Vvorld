@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 config();
 
@@ -40,9 +41,11 @@ class ConfigService {
       database: this.getValue('DB_DATABASE'),
       entities: ["dist/**/*.entity{.ts,.js}"],
       migrations: ["dist/database/migration/*.js"], 
+      synchronize: true,
       cli: {
           migrationsDir: "migration"
-      }
+      },
+      namingStrategy: new SnakeNamingStrategy()
     };
   }
 

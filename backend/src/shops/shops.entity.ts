@@ -3,15 +3,13 @@ import { Base } from "../config/base.entity";
 
 
 @Entity()
-export class User extends Base {
-
-  @Column({nullable: true, unique: true})
-  mobilePhone: string | null;
+export class Shops extends Base {
 
   @Column({unique: true})
-  email: string;
+  name: string;
 
   @Column()
-  password: string;
+  products_in_shops: string;
+  //TODO MANY TO MANY
   
 }

@@ -7,7 +7,7 @@ const MainText = styled('h3')`
   margin-bottom: 10px;
 `;
 
-const RegisterText: React.FC = () => {
+const RegisterText = () => {
   return (
     <React.Fragment>
       <MainText>

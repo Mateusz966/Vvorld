@@ -16,3 +16,9 @@ export type LoginUserData = {
   email: string,
   password: string,
 }
+
+
+export type City = {
+  id: string,
+  name: string
+}

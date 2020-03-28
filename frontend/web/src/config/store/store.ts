@@ -11,7 +11,7 @@ export const store = configureStore({
 
 store.subscribe(() => {
   saveState({
-    login: {
+    auth: {
       token: store.getState().auth.token,
     }
   });

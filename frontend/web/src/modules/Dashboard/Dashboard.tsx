@@ -1,15 +1,17 @@
-import React from 'react'
+import React from 'react';
+import SearchInput from '../../shared/components/SearchInput/SearchInput';
+import { Container, Grid } from '@material-ui/core';
 
-interface Props {
-  
-}
-
-const Dashboard = (props: Props) => {
+const Dashboard = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      <Container>
+        <Grid justify="center" item xs={12}>
+          <SearchInput />
+        </Grid>
+      </Container>
+    </>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

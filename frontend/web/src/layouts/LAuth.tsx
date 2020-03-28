@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import Register from '../modules/Register/Register';
 import Login from '../modules/Login/Login';
 
-const LAuth: React.FC<{}> = () => {
+const LAuth = () => {
   return (
     <Suspense fallback={null}>
       <Route path="/auth/sign-up" component={Register} />

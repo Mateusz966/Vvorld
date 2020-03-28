@@ -3,7 +3,7 @@ import { Base } from "../config/base.entity";
 
 
 @Entity()
-export class User extends Base {
+export class Restaurant extends Base {
 
   @Column({nullable: true, unique: true})
   mobilePhone: string | null;

@@ -9,11 +9,9 @@ export const loginUser = createAsyncThunk(
   'userData',
   async (data: LoginUserData, { rejectWithValue }) => {
     try {
-      console.log('a');
       const user = await authApi.signIn(data);
       return user;
     } catch (error) {
-      console.log(error);
       if (!error.response) {
         throw error;
       }
