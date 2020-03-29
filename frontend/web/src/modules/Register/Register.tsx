@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import RegisterForm from './components/RegisterForm';
+import React from 'react';
+import { Container, Grid } from '@material-ui/core';
 import RegisterText from './components/RegisterText';
-import { Grid, Container } from '@material-ui/core';
+import RegisterForm from './components/RegisterForm';
 import styled from 'styled-components';
 
 
@@ -13,26 +13,21 @@ const BackgroundImage = styled('div')`
   height: 100%;
 `;
 
-interface Props {
 
-}
-
-class Register extends PureComponent<Props> {
-  render() {
-    return (
-      <Container> 
-        <Grid spacing={3} container>
-          <Grid item xs={6}>
-            <RegisterText />
-            <RegisterForm />
-          </Grid>
-          <Grid item xs={6}>
-            <BackgroundImage />
-          </Grid>
+const Register = () => {
+  return (
+    <Container>
+      <Grid spacing={3} container>
+        <Grid item xs={6}>
+          <RegisterText />
+          <RegisterForm />
         </Grid>
-      </Container>
-    );
-  }
-}
+        <Grid item xs={6}>
+          <BackgroundImage />
+        </Grid>
+      </Grid>
+    </Container>
+  );
+};
 
 export default Register;

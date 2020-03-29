@@ -1,20 +1,21 @@
-import React from 'react'
-import { Container, Grid } from '@material-ui/core';
+import React from 'react';
+import { Container, makeStyles, Theme, createStyles } from '@material-ui/core';
+import LoginForm from './componenets/LoginForm';
+import MainHeader from '../../shared/components/MainHeader/MainHeader';
 
-interface Props {
-  
-}
 
-const Login = (props: Props) => {
+
+
+const Login = () => {
+
   return (
-    <>
-      <Container>
-        <Grid component={'form'} xs={12} item>
+    <Container maxWidth="sm">
+      <MainHeader>
+        Sign In to better Vorld
+      </MainHeader>
+      <LoginForm />
+    </Container>
+  );
+};
 
-        </Grid>
-      </Container>
-    </>
-  )
-}
-
-export default Login
+export default Login;

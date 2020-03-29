@@ -6,8 +6,9 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { Connection } from 'typeorm';
 import { configService } from './config/ConfigService';
+import { CitiesModule } from './cities/cities.module';
 @Module({
-  imports: [TypeOrmModule.forRoot(configService.getTypeOrmConfig()), AuthModule, UsersModule,],
+  imports: [TypeOrmModule.forRoot(configService.getTypeOrmConfig()), AuthModule, UsersModule, CitiesModule,],
   controllers: [AppController],
   providers: [AppService],
 })

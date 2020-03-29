@@ -1,11 +1,12 @@
 import { Route } from 'react-router-dom';
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
+import Dashboard from '../modules/Dashboard/Dashboard';
 
-const LApp: React.FC<{}> = () => {
+const LApp = () => {
   return (
     <div>
       <Suspense fallback={null}>
-    
+        <Route path="/" component={Dashboard} />
       </Suspense>
     </div>
   )

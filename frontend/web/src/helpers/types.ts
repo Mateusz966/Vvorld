@@ -3,3 +3,22 @@ export type ErrorField = {
   message: string,
   type: string,
 }
+
+export type RegisterUserData = {
+  email: string,
+  password: string,
+  passwordConfirmation: string,
+  mobilPhone?: string,
+}
+
+
+export type LoginUserData = {
+  email: string,
+  password: string,
+}
+
+
+export type City = {
+  id: string,
+  name: string
+}
