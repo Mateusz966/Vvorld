@@ -9,24 +9,22 @@ import { getCities } from '../../shared/state/cities.slice';
 const Dashboard = () => {
 
   const dispatch = useDispatch();
-  const cities = useSelector((state: RootState) => state.cities); 
-  
+  const cities = useSelector((state: RootState) => state.cities);
+
   const allCities = () => {
     cities.cities.length === 0 && dispatch(getCities());
   };
 
   useEffect(() => {
-    allCities()
-  }, [])
+    allCities();
+  }, []);
 
   return (
-    <>
-      <Container>
-        <Grid item xs={12}>
-          <SearchInput />
-        </Grid>
-      </Container>
-    </>
+    <Container>
+      <Grid item xs={12}>
+        <SearchInput />
+      </Grid>
+    </Container>
   );
 };
 
