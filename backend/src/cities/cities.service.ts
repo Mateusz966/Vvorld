@@ -13,7 +13,8 @@ export class CitiesService {
   
     async allCities(): Promise<any> {
       try {
-        await this.citiesRepository.find();
+        const cities = await this.citiesRepository.find();
+        return cities
       } catch (error) {
         throw error;
       }

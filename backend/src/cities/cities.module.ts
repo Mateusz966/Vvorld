@@ -9,6 +9,6 @@ import { CitiesController } from './cities.controller';
     TypeOrmModule.forFeature([City]),
   ],
   providers: [CitiesService],
-  controllers: [CitiesController]
+  controllers: [CitiesController],
 })
 export class CitiesModule {}
