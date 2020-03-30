@@ -11,11 +11,11 @@ export class BrandsService implements OnModuleInit {
   }
   
   insertBrands() {
-    const openFoodActData = 'https://pl-en.openfoodfacts.org/brands/'
+    const openFoodActData = 'https://pl-en.openfoodfacts.org/stores.json/'
     try {
       this.httpService.get(openFoodActData).subscribe((response) => {
-        console.log(response);
-      })
+        
+      });
     } catch (error) {
       
     }

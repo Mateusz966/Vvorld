@@ -1,9 +1,12 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Base } from "../config/base.entity";
 
 
 @Entity()
-export class Brands extends Base {
+export class Brands {
+  
+  @Column({unique: true })
+  id: string;
 
   @Column({unique: true})
   name: string;
@@ -16,6 +19,12 @@ export class Brands extends Base {
 
   @Column()
   lng: string;
+
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  createDateTime: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  lastChangedDateTime: Date;
 
   // TODO products in shop relation
   // TODO Shops city relation

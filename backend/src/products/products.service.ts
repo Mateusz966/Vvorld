@@ -5,7 +5,11 @@ export class ProductsService implements OnModuleInit {
   constructor() { }
 
   onModuleInit() {
-    console.log('dane');
+
+  }
+
+  insertOrUpdateProducts() {
+    
   }
 
 }
