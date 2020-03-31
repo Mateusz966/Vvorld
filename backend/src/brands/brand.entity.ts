@@ -1,24 +1,15 @@
-import { Column, Entity, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
 import { Base } from "../config/base.entity";
 
 
 @Entity()
-export class Brands {
+export class Brand {
   
-  @Column({unique: true })
+  @PrimaryColumn({unique: true })
   id: string;
 
   @Column({unique: true})
   name: string;
-
-  @Column({unique: true})
-  address: string;
-
-  @Column()
-  lat: string;
-
-  @Column()
-  lng: string;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createDateTime: Date;

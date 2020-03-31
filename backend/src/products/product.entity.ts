@@ -6,9 +6,12 @@ import { Base } from "../config/base.entity";
 export class Product extends Base {
 
   @Column({unique: true})
-  productName: string;
+  name: string;
 
   @Column()
   ingredients: string;
+
+  @Column('varchar', { array: true })
+  inStores: []; 
   
 }

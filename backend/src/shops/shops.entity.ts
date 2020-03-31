@@ -8,8 +8,17 @@ export class Shops extends Base {
   @Column({unique: true})
   name: string;
 
+  @Column({unique: true})
+  address: string;
+
   @Column()
-  products_in_shops: string;
+  lat: string;
+
+  @Column()
+  lng: string;
+
+  @Column()
+  productsInShop: string;
   //TODO MANY TO MANY
   
 }

@@ -1,4 +1,4 @@
-export const brandsSeed = [
+export const BrandSeed = [
   {
     name: 'Biedronka',
     createDateTime: `${new Date()}`,
