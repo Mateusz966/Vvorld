@@ -28,7 +28,7 @@ export class BrandService implements OnModuleInit {
       await this.brandRepository.save(brand) 
       });
     } catch (error) {
-      
+      console.log(error);
     }
   }
 

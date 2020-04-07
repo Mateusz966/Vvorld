@@ -1,5 +1,6 @@
-import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
+import { Column, Entity, CreateDateColumn, UpdateDateColumn, PrimaryColumn, ManyToMany, JoinTable } from 'typeorm';
 import { Base } from "../config/base.entity";
+import { Product } from 'src/products/product.entity';
 
 
 @Entity()
@@ -16,6 +17,7 @@ export class Brand {
 
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   lastChangedDateTime: Date;
+
 
   // TODO products in shop relation
   // TODO Shops city relation
