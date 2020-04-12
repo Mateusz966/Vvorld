@@ -14,7 +14,7 @@ export class ProductsService implements OnModuleInit {
 
   onModuleInit() {
     // For development mode only, need to insert a base products.
-    const isProductsAdded = true;
+    const isProductsAdded = false;
     if (!isProductsAdded) {
       this.insertOrUpdateProducts();
     }

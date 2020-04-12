@@ -22,9 +22,9 @@ export class BrandService implements OnModuleInit {
         const brand = response.data.tags.map((brand: any) => {
           return {
             name: brand.name,
-            id: brand.id
           }
         });
+        console.log(brand);
       await this.brandRepository.save(brand) 
       });
     } catch (error) {

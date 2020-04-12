@@ -9,7 +9,7 @@ const Layouts = () => {
   return (
     <Switch>
       <Route path="/auth" component={LAuth} />
-      <Route path="/" exact component={LApp} />
+      <Route path="/" component={LApp} />
     </Switch>
   );
 };

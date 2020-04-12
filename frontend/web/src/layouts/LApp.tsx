@@ -1,8 +1,9 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import Dashboard from '../modules/Dashboard/Dashboard';
 import AppTopBar from '../shared/components/AppTopBar/AppTopBar';
 import styled from 'styled-components';
+import AddProduct from '../modules/Products/AddProduct';
 
 const AppWrapper = styled('main')`
   margin-top: 45px;
@@ -10,14 +11,13 @@ const AppWrapper = styled('main')`
 
 const LApp = () => {
   return (
-    <>
-      <Suspense fallback={null}>
-        <AppTopBar />
-        <AppWrapper>
-          <Route path="/" component={Dashboard} />
-        </AppWrapper>
-      </Suspense>
-    </>
+    <Suspense fallback={null}>
+      <AppTopBar />
+      <AppWrapper>
+        <Route path="/add-product" component={AddProduct} />
+        <Route path="/" exact component={Dashboard} />
+      </AppWrapper>
+    </Suspense>
   );
 };
 

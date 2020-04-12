@@ -4,6 +4,7 @@ import { Container, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../config/store/rootReducer';
 import { getCities } from '../../shared/state/cities.slice';
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -22,6 +23,9 @@ const Dashboard = () => {
   return (
     <Container>
       <Grid item xs={12}>
+        <Link to={'/add-product'}>
+          Link do
+        </Link>
         <SearchInput />
       </Grid>
     </Container>

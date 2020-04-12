@@ -3,11 +3,8 @@ import { Base } from "../config/base.entity";
 import { Product } from 'src/products/product.entity';
 
 
-@Entity()
-export class Brand {
-  
-  @PrimaryColumn({unique: true })
-  id: string;
+@Entity('brands')
+export class Brand extends Base {
 
   @Column({unique: true})
   name: string;
@@ -17,7 +14,6 @@ export class Brand {
 
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   lastChangedDateTime: Date;
-
 
   // TODO products in shop relation
   // TODO Shops city relation

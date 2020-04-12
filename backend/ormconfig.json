@@ -4,10 +4,12 @@
   "port": "5432",
   "username": "postgres",
   "password": "123qwe",
-  "database": "postgres",
-  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "database": "vww",
+  "autoLoadEntities": true,
   "synchronize": true,
   "migrations": ["dist/database/migration/*.js"],
+  "dropSchema": true,
+  "keepConnectionAlive": true,
   "cli": {
       "migrationsDir": "migration"
   }
